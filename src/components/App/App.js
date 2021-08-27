@@ -33,19 +33,18 @@ class App extends React.Component {
   }
 
   setTrack() {
-    this.setState({playlistTracks: playlistTracks.tracks});
+    this.setState({ playlistTracks: playlistTracks.tracks });
   }
 
   removeTrack(track) {
     const playlistTracks = this.state.playlistTracks;
     for (let item in playlistTracks) {
       if (track.id === playlistTracks[item].id) {
-        playlistTracks.splice(item, item);
+        playlistTracks.splice(item, 1);
         this.setTrack();
       }
     }
   }
-
 
   render() {
     return (
@@ -56,8 +55,15 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
-            <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} onRemove={this.removeTrack}/>
+            <SearchResults
+              searchResults={this.state.searchResults}
+              onAdd={this.addTrack}
+            />
+            <Playlist
+              playlistName={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
+            />
           </div>
         </div>
       </div>
