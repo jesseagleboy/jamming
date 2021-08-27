@@ -18,6 +18,7 @@ const searchResults = {
       album: "Pokemon",
       id: 657,
     },
+    {name: "Jessie's Girl", artist: 'Rick Springfield', album: 'Unknown', id: 1995}
   ],
 };
 
