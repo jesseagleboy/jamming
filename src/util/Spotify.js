@@ -1,5 +1,7 @@
+import clientInfo from './clientInfo';
 let userAccessToken;
-const clientID = ''
+const clientID = clientInfo.clientID;
+const redirectURI = clientInfo.redirectURI;
 
 const getAccessToken = () => {
     if (userAccessToken) {
