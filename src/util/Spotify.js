@@ -13,12 +13,13 @@ function getAccessToken () {
 
   if (accessToken && expiresInMatch) {
     userAccessToken = accessToken[1];
+    console.log(`userAccessToken: ${userAccessToken}`);
     const expirationTime = Number(expiresInMatch[1]);
 
     window.setTimeout(() => userAccessToken = " ", expirationTime * 1000);
     window.history.pushState("Access Token", null, "/");
 
-    return accessToken;
+    return userAccessToken;
   } else {
     const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user-read-private%20user-read-email&response_type=token&state=123`;
     window.location = accessURL;
@@ -28,6 +29,7 @@ function getAccessToken () {
 
 async function search (searchTerm) {
     const accessToken = Spotify.getAccessToken();
+    console.log(`AccessToken: ${accessToken}`);
     const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {headers: {Authorization: `Bearer ${accessToken}`}});
 
     if (response.ok) {
