@@ -5,6 +5,7 @@ import Playlist from "../Playlist/Playlist";
 import React from "react";
 import searchResults from "./searchResults";
 import playlistTracks from "./playlistTracks";
+import Spotify from "../../util/Spotify";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -74,6 +75,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
+          {Spotify.getAccessToken()}
           <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
             <SearchResults
