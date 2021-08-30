@@ -7,6 +7,7 @@ class SearchResults extends React.Component {
     return (
       <div className="SearchResults">
         <h2>Results</h2>
+        {console.log(`This is the searchResult: ${JSON.stringify(this.props.searchResults)}`)}
         <TrackList searchResults={this.props.searchResults} onAdd={this.props.onAdd} isRemoval={false}/>
       </div>
     );

@@ -3,7 +3,7 @@ let userAccessToken;
 const clientID = clientInfo.clientID;
 const redirectURI = clientInfo.redirectURI;
 
-const getAccessToken = () => {
+function getAccessToken () {
   if (userAccessToken) {
     return userAccessToken;
   }
@@ -15,7 +15,7 @@ const getAccessToken = () => {
     userAccessToken = accessToken[1];
     const expirationTime = Number(expiresInMatch[1]);
 
-    window.setTimeout(() => (userAccessToken = ""), expirationTime * 1000);
+    window.setTimeout(() => userAccessToken = " ", expirationTime * 1000);
     window.history.pushState("Access Token", null, "/");
 
     return accessToken;
@@ -26,13 +26,26 @@ const getAccessToken = () => {
 };
 
 
-const search = async searchTerm => {
+async function search (searchTerm) {
     const accessToken = Spotify.getAccessToken();
     const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {headers: {Authorization: `Bearer ${accessToken}`}});
 
     if (response.ok) {
         const jsonResponse = await response.json();
-        console.log(jsonResponse);
+
+        if (jsonResponse.tracks) {
+            return jsonResponse.tracks.items.map(track => {
+                return {
+                    id: track.id,
+                    name: track.name,
+                    artist: track.artists[0].name,
+                    album: track.album.name,
+                    uri: track.uri
+                }
+            });
+        }  else {
+            return [];
+        }
     }
 }
 

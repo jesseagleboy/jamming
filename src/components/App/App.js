@@ -63,8 +63,10 @@ class App extends React.Component {
     console.log(`This was clicked. ${JSON.stringify(trackURIs)}`);
   }
 
-  search(term) {
-    Spotify.search(term);
+ search(term) {
+    Spotify.search(term).then(searchResults => {
+      this.setState({searchResults:searchResults});
+    });
   }
 
 
@@ -75,7 +77,6 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          {Spotify.getAccessToken()}
           <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
             <SearchResults
