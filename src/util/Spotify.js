@@ -1,11 +1,12 @@
 import clientInfo from "./clientInfo";
-let userAccessToken = " ";
+let userAccessToken = null;
 const clientID = clientInfo.clientID;
 const redirectURI = clientInfo.redirectURI;
 
 function getAccessToken() {
-  if (userAccessToken) {
-    console.log(userAccessToken);
+  console.log(`This is beginning of function: ${userAccessToken}`);
+    if (userAccessToken) {
+    console.log(`This is userAccessToken: ${userAccessToken}`);
     return userAccessToken;
   }
 
@@ -19,6 +20,8 @@ function getAccessToken() {
 
     window.setTimeout(() => userAccessToken = " ", expirationTime * 1000);
     window.history.pushState("Access Token", null, "/");
+
+    console.log(`This is with accessToken and expiresInMatch: ${userAccessToken} & ${expiresInMatch}`);
 
     return userAccessToken;
   } else {
