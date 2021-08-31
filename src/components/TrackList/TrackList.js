@@ -6,7 +6,7 @@ class TrackList extends React.Component {
   
   getTracks() {
     const tracks = this.props.searchResults;
-
+    console.log(`This is tracks: ${JSON.stringify(tracks)}`);
     return tracks.map((track) => {
       return (
         <Track

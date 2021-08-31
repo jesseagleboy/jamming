@@ -1,10 +1,11 @@
 import clientInfo from "./clientInfo";
-let userAccessToken;
+let userAccessToken = " ";
 const clientID = clientInfo.clientID;
 const redirectURI = clientInfo.redirectURI;
 
-function getAccessToken () {
+function getAccessToken() {
   if (userAccessToken) {
+    console.log(userAccessToken);
     return userAccessToken;
   }
 
@@ -22,33 +23,37 @@ function getAccessToken () {
     return userAccessToken;
   } else {
     const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user-read-private%20user-read-email&response_type=token&state=123`;
+    console.log(accessURL);
     window.location = accessURL;
+    console.log("This is the else statement.");
   }
-};
+}
 
+async function search(searchTerm) {
+  const accessToken = Spotify.getAccessToken();
+  console.log(`AccessToken: ${accessToken}`);
+  const response = await fetch(
+    `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
+    { headers: { Authorization: `Bearer ${accessToken}` } }
+  );
 
-async function search (searchTerm) {
-    const accessToken = Spotify.getAccessToken();
-    console.log(`AccessToken: ${accessToken}`);
-    const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, {headers: {Authorization: `Bearer ${accessToken}`}});
+  if (response.ok) {
+    const jsonResponse = await response.json();
 
-    if (response.ok) {
-        const jsonResponse = await response.json();
-
-        if (jsonResponse.tracks) {
-            return jsonResponse.tracks.items.map(track => {
-                return {
-                    id: track.id,
-                    name: track.name,
-                    artist: track.artists[0].name,
-                    album: track.album.name,
-                    uri: track.uri
-                }
-            });
-        }  else {
-            return [];
-        }
+    if (jsonResponse.tracks) {
+      return jsonResponse.tracks.items.map((track) => {
+        return {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+          uri: track.uri,
+        };
+      });
     }
+    } else {
+        return [];
+  }
 }
 
 const Spotify = {

@@ -1,4 +1,4 @@
-const searchResults = {
+const resultsofSearch = {
   results: [
     {
       name: "Run It",
@@ -22,4 +22,4 @@ const searchResults = {
   ],
 };
 
-export default searchResults;
+export default resultsofSearch;
