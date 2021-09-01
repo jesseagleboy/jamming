@@ -35,6 +35,8 @@ async function search(searchTerm) {
     { headers: { Authorization: `Bearer ${accessToken}` } }
   );
 
+  window.history.pushState('Search', 'Search', `/q?term=${searchTerm}`);
+
   if (response.ok) {
     const jsonResponse = await response.json();
 
