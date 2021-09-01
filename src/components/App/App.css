@@ -10,6 +10,7 @@ html {
 
 h1 {
   padding: .77rem 0;
+  margin: 0;
   background-color: #010c3f;
   text-align: center;
   font-family: 'Poppins', sans-serif;
