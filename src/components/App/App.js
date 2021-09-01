@@ -9,12 +9,10 @@ import Spotify from "../../util/Spotify";
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       searchResults: resultsofSearch.results,
       playlistName: "A Cool Playlist",
-      playlistTracks: playlistTracks.tracks,
-      searchBoxText: "Enter A Song, Album, or Artist"
+      playlistTracks: playlistTracks.tracks
     };
 
     this.addTrack = this.addTrack.bind(this);
@@ -22,11 +20,9 @@ class App extends React.Component {
     this.updatePlayListName = this.updatePlayListName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
-    this.searchTextBoxText = this.searchTextBoxText.bind(this);
   }
 
   componentDidMount() {
-    console.log('This mounted');
     Spotify.getAccessToken('');
   }
 
@@ -75,15 +71,6 @@ class App extends React.Component {
     });
   }
 
-  searchTextBoxText() {
-    const searchParams = new URL(window.location.href).searchParams.get('term');
-    if (!searchParams === null) {
-      this.setState({searchTextBox: searchParams});
-    }
-
-    console.log(this.state.searchBoxText);
-  }
-
   render() {
     return (
       <div>
@@ -91,7 +78,7 @@ class App extends React.Component {
           Ja<span className="highlight">mmm</span>ing
         </h1>
         <div className="App">
-          <SearchBar onSearch={this.search} placeholder={this.state.searchBoxText}/>
+          <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults
               searchResults={this.state.searchResults}
