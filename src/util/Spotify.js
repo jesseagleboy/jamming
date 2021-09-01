@@ -1,40 +1,35 @@
 import clientInfo from "./clientInfo";
 let userAccessToken = null;
+let accessURL = null;
 const clientID = clientInfo.clientID;
 const redirectURI = clientInfo.redirectURI;
 
-function getAccessToken() {
-  console.log(`This is beginning of function: ${userAccessToken}`);
+function getAccessToken(term) {
     if (userAccessToken) {
-    console.log(`This is userAccessToken: ${userAccessToken}`);
     return userAccessToken;
   }
 
+  
   const accessToken = window.location.href.match(/access_token=([^&]*)/);
   const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
 
   if (accessToken && expiresInMatch) {
     userAccessToken = accessToken[1];
-    console.log(`userAccessToken: ${userAccessToken}`);
     const expirationTime = Number(expiresInMatch[1]);
 
     window.setTimeout(() => userAccessToken = " ", expirationTime * 1000);
-    window.history.pushState("Access Token", null, "/");
-
-    console.log(`This is with accessToken and expiresInMatch: ${userAccessToken} & ${expiresInMatch}`);
+    window.history.pushState("Access Token", 'Token', `${term}`);
 
     return userAccessToken;
   } else {
-    const accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user-read-private%20user-read-email&response_type=token&state=123`;
-    console.log(accessURL);
-    window.location = accessURL;
-    console.log("This is the else statement.");
+    accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user-read-private%20user-read-email&response_type=token&state=123`;
+    window.location.href = accessURL;
+
   }
 }
 
 async function search(searchTerm) {
-  const accessToken = Spotify.getAccessToken();
-  console.log(`AccessToken: ${accessToken}`);
+  const accessToken = Spotify.getAccessToken(searchTerm);
   const response = await fetch(
     `https://api.spotify.com/v1/search?type=track&q=${searchTerm}`,
     { headers: { Authorization: `Bearer ${accessToken}` } }
@@ -62,6 +57,7 @@ async function search(searchTerm) {
 const Spotify = {
   getAccessToken: getAccessToken,
   search: search,
+  authenticate: getAccessToken,
 };
 
 export default Spotify;
