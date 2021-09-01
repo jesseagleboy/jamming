@@ -24,6 +24,7 @@ class App extends React.Component {
 
   componentDidMount() {
     Spotify.getAccessToken('');
+    window.history.pushState('Start', '', '/start');
   }
 
   addTrack(track) {

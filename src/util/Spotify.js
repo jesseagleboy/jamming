@@ -9,7 +9,6 @@ function getAccessToken(term) {
     return userAccessToken;
   }
 
-  
   const accessToken = window.location.href.match(/access_token=([^&]*)/);
   const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
 
@@ -24,7 +23,6 @@ function getAccessToken(term) {
   } else {
     accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user-read-private%20user-read-email&response_type=token&state=123`;
     window.location.href = accessURL;
-
   }
 }
 
