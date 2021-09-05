@@ -11,7 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults: resultsofSearch.results,
-      playlistName: "A Cool Playlist",
+      playlistName: "Starter Name",
       playlistTracks: playlistTracks.tracks
     };
 
@@ -59,9 +59,9 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    const trackURIs = this.state.playlistTracks.map((track) => {
-      return track;
-    });
+    const trackURIs = this.state.playlistTracks.map(track => track.uri);
+
+    Spotify.savePlaylist(this.state.playlistName, trackURIs).then(response => console.log(response));
 
     console.log(`This was clicked. ${JSON.stringify(trackURIs)}`);
   }
