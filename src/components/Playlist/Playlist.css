@@ -1,16 +1,21 @@
 .Playlist {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: scroll;
+    display: grid;
+    grid-template-rows: auto 130px 800px;
+    gap: 0px;
+    grid-template-areas: 
+    ". . save clear"
+    "name name name name"
+    "playlist playlist playlist playlist";
+    
     width: 50%;
-    max-height: 950px;
-    padding: 2.27rem 1.16rem;
+    height: 950px;
+    padding: 0.88rem;
     background-color: rgba(1, 12, 63, 0.7);
     box-shadow: 0 4px 2px 2px #000000;
   }
   
   .Playlist input {
+    grid-area: name;
     width: 100%;
     border: 0;
     outline: 0;
@@ -21,19 +26,33 @@
     color: #fff;
   }
   
-  .Playlist-save {
+  .Playlist-button {
     cursor: pointer;
-    width: 10rem;
-    padding: .77rem 0;
+    /* width: 10rem;
+    height: 3rem; */
+    /* padding: .77rem 0; */
     border-radius: 54px;
     border-width: 0px;
-    margin-top: 1.27rem;
+    /* margin-top: 1.27rem; */
     background-color: #6c41ec;
     text-align: center;
     font-size: .83rem;
     transition: background-color .25s;
     color: #fff;
     font-weight: 500;
+  }
+  
+  .save {
+    grid-area: save;
+  }
+
+  .clear {
+    grid-area: clear;
+  }
+
+  .list {
+    grid-area: playlist;
+    overflow-y: scroll;
   }
   
   .Playlist-save:hover {
