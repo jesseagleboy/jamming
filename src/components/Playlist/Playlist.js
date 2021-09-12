@@ -18,7 +18,7 @@ class Playlist extends React.Component {
           <TrackList searchResults={this.props.playlistTracks} isRemoval={true} onRemove={this.props.onRemove}/>
         </div>
         <button className="Playlist-button save" onClick={this.props.onSave}>SAVE TO SPOTIFY</button>
-        <button className="Playlist-button clear">CLEAR ALL</button>
+        <button className="Playlist-button clear" onClick={this.props.removeAll}>CLEAR ALL</button>
       </div>
     );
   }

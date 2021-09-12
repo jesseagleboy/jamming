@@ -20,6 +20,7 @@ class App extends React.Component {
     this.updatePlayListName = this.updatePlayListName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.removeAll = this.removeAll.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +49,11 @@ class App extends React.Component {
         this.setTrack();
       }
     }
+  }
+
+  removeAll() {
+    playlistTracks.tracks = [];
+    this.setState({playlistTracks: playlistTracks.tracks});
   }
 
   setTrack() {
@@ -91,6 +97,7 @@ class App extends React.Component {
               onRemove={this.removeTrack}
               updateName={this.updatePlayListName}
               onSave={this.savePlaylist}
+              removeAll = {this.removeAll}
             />
           </div>
         </div>
