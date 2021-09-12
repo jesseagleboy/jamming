@@ -1,4 +1,4 @@
-import clientInfo from "./clientInfo";
+import clientInfo from "https://github.com/jesseagleboy/tools/blob/c7ca4d4098909f9355943d94d6ee4609b33a7f8b/clientInfo.js";
 let userAccessToken = null;
 let accessURL = null;
 const clientID = clientInfo.clientID;
