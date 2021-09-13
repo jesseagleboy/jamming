@@ -1,4 +1,4 @@
-import clientInfo from "clientInfo.js";
+import clientInfo from "./clientInfo.js";
 let userAccessToken = null;
 let accessURL = null;
 const clientID = clientInfo.clientID;
@@ -21,6 +21,7 @@ function getAccessToken(term) {
 
     return userAccessToken;
   } else {
+    console.log(clientInfo);
     accessURL = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=token&scope=playlist-modify-private&redirect_uri=${redirectURI}`;
     window.location.href = accessURL;
   }
