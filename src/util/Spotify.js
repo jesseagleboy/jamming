@@ -1,4 +1,4 @@
-import clientInfo from "./clientInfo";
+import clientInfo from "clientInfo.js";
 let userAccessToken = null;
 let accessURL = null;
 const clientID = clientInfo.clientID;
